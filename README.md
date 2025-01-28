@@ -2,4 +2,8 @@
 
 Nokia Snake background hero section.
 
-credit: modified of the original https://codepen.io/gokhanozgezer/pen/WNqbeGp NOKIA Snake Game by Gokhan Ozgeze
+**[Demo: https://cleverbaker.github.io/Nokia-snake-bg](https://cleverbaker.github.io/Nokia-snake-bg/)**
+
+--
+
+credit: modified of **[the original NOKIA Snake Game by Gokhan Ozgeze](https://codepen.io/gokhanozgezer/pen/WNqbeGp)**
