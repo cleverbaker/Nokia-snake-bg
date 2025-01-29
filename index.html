@@ -19,7 +19,6 @@
             background-color: #1c1c1c;
             border-radius: 10px;
             padding: 20px;
-            /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
             height: calc(100vh - 40px);
             display: flex;
             width: calc(100% - 40px);
@@ -39,6 +38,8 @@
             margin: auto;
             opacity: 0.2;
             transition: opacity 0.1s;
+            height: calc(100vh - 60px); /* Fallback for browsers that do not support Custom Properties */
+            height: calc(var(--vh, 1vh) * 100);
         }
         #endTitle {
             background-color: #1f3100;
@@ -112,6 +113,7 @@ by Gokhan Ozgezer-->
     const startFactor = 0.75;
 
     let gridSize = 10;
+    let vh = window.innerHeight * 0.01;
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
     const tileCount = () => canvas.width / gridSize;
@@ -142,14 +144,16 @@ by Gokhan Ozgezer-->
     let interval = startInterval;
     let factor = startFactor;
 
+   document.documentElement.style.setProperty('--vh', `${vh}px`);
+
     if (canvas.width > windowWidth) {
         canvas.setAttribute("width", String(windowWidth - 60));
         canvas.width = windowWidth - 60;
     }
 
-    if (canvas.height > (windowHeight - 60)) {
-        canvas.setAttribute("height", String(windowHeight - 120));
-        canvas.height = windowHeight - 120;
+   if (canvas.height > (windowHeight - 60)) {
+        canvas.setAttribute("height", String(vh - 60));
+        canvas.height = vh - 60;
     }
 
     startButton.addEventListener("click", startGame);
@@ -299,10 +303,36 @@ by Gokhan Ozgezer-->
         }
     }
 
+
+    function debounce(func, time) {
+        time = time || 100; // 100 by default if no param
+        let timer;
+        return function(event) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(func, time, event);
+        };
+    }
+    function canvasResize() {
+        vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        
+        canvas.setAttribute("width", String(windowWidth - 60));
+        canvas.width = windowWidth - 60;
+        canvas.setAttribute("height", String(vh - 60));
+        canvas.height = vh - 60;
+    }
+
     let touchStartX = 0;
     let touchStartY = 0;
     let touchEndX = 0;
     let touchEndY = 0;
+
+    let resized_timeout = interval;
+
+
+    window.addEventListener("resize", debounce( canvasResize, 150 ));
 
     canvas.addEventListener(
         "touchstart",
@@ -322,6 +352,11 @@ by Gokhan Ozgezer-->
         },
         false
     );
+
+    window.onresize = function(){
+        clearTimeout(resized_timeout);
+        resized_timeout = setTimeout(canvasResize, interval);
+    };
 
     function handleSwipe() {
         let xDiff = touchStartX - touchEndX;
