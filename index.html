@@ -38,8 +38,6 @@
             margin: auto;
             opacity: 0.2;
             transition: opacity 0.1s;
-            height: calc(100vh - 60px); /* Fallback for browsers that do not support Custom Properties */
-            height: calc(var(--vh, 1vh) * 100);
         }
         #endTitle {
             background-color: #1f3100;
@@ -49,8 +47,12 @@
             color: #98cb00;
             text-align: center;
             font-size: 18px;
-            margin-top: 10px;
             opacity: 0.25;
+            position: absolute;
+            bottom: 8px;
+            margin: auto;
+            right: 0;
+            left: 0;
         }
         #startButton,
         #restartButton,
@@ -114,6 +116,7 @@ by Gokhan Ozgezer-->
 
     let gridSize = 10;
     let vh = window.innerHeight * 0.01;
+    let vw = window.innerWidth * 0.01;
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
     const tileCount = () => canvas.width / gridSize;
@@ -148,12 +151,12 @@ by Gokhan Ozgezer-->
 
     if (canvas.width > windowWidth) {
         canvas.setAttribute("width", String(windowWidth - 60));
-        canvas.width = windowWidth - 60;
+        //canvas.width = windowWidth - 60;
     }
 
-   if (canvas.height > (windowHeight - 60)) {
-        canvas.setAttribute("height", String(vh - 60));
-        canvas.height = vh - 60;
+   if (canvas.height - 10 > (windowHeight - 70)) {
+        canvas.setAttribute("height", String(windowHeight - 70));
+        //canvas.height = vh - 60;
     }
 
     startButton.addEventListener("click", startGame);
@@ -316,12 +319,18 @@ by Gokhan Ozgezer-->
     }
     function canvasResize() {
         vh = window.innerHeight * 0.01;
+        vw = window.innerWidth * 0.01;
+
+        windowWidth = window.innerWidth;
+        windowHeight = window.innerHeight;
+
         document.documentElement.style.setProperty('--vh', `${vh}px`);
-        
+        document.documentElement.style.setProperty('--vw', `${vw}px`);
+
         canvas.setAttribute("width", String(windowWidth - 60));
-        canvas.width = windowWidth - 60;
-        canvas.setAttribute("height", String(vh - 60));
-        canvas.height = vh - 60;
+       // canvas.width = windowWidth - 60;
+        canvas.setAttribute("height", String(windowHeight - 60));
+        // canvas.height = vh - 60;
     }
 
     let touchStartX = 0;
