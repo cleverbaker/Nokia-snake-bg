@@ -111,9 +111,9 @@ by Gokhan Ozgezer-->
     const startInterval = 1670;
     const startFactor = 0.75;
 
-
-
     let gridSize = 10;
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
     const tileCount = () => canvas.width / gridSize;
     const increaseSpeed = () => {
         const intervalTime = (factor > 0.48) ? Math.round(interval * factor) : interval;
@@ -133,7 +133,6 @@ by Gokhan Ozgezer-->
         interval = intervalTime;
     };
 
-
     let snake = [];
     let food = {};
     let dx = 1;
@@ -142,6 +141,14 @@ by Gokhan Ozgezer-->
     let gameLoop;
     let interval = startInterval;
     let factor = startFactor;
+
+    if (canvas.width > windowWidth) {
+        canvas.setAttribute("width", String(windowWidth - 60));
+    }
+
+    if (canvas.height > windowHeight) {
+        canvas.setAttribute("height", String(windowHeight - 60));
+    }
 
     startButton.addEventListener("click", startGame);
     restartButton.addEventListener("click", startGame);
@@ -165,8 +172,6 @@ by Gokhan Ozgezer-->
         gameOverScreen.style.display = "none";
         if (gameLoop) clearInterval(gameLoop);
         gameLoop = setInterval(drawGame, interval);
-
-        // show interval time
     }
 
     function drawGame() {
