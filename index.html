@@ -144,10 +144,12 @@ by Gokhan Ozgezer-->
 
     if (canvas.width > windowWidth) {
         canvas.setAttribute("width", String(windowWidth - 60));
+        canvas.width = windowWidth - 60;
     }
 
-    if (canvas.height > (windowHeight - 60) {
+    if (canvas.height > (windowHeight - 60)) {
         canvas.setAttribute("height", String(windowHeight - 120));
+        canvas.height = windowHeight - 120;
     }
 
     startButton.addEventListener("click", startGame);
