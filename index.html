@@ -118,7 +118,8 @@ by Gokhan Ozgezer-->
     let vh = window.innerHeight * 0.01;
     let vw = window.innerWidth * 0.01;
     let windowWidth = window.innerWidth;
-    let windowHeight = window.innerHeight;
+    //let windowHeight = window.innerHeight;
+    let windowHeight = document.documentElement.clientHeight;
     const tileCount = () => canvas.width / gridSize;
     const increaseSpeed = () => {
         const intervalTime = (factor > 0.48) ? Math.round(interval * factor) : interval;
@@ -322,7 +323,7 @@ by Gokhan Ozgezer-->
         vw = window.innerWidth * 0.01;
 
         windowWidth = window.innerWidth;
-        windowHeight = window.innerHeight;
+        windowHeight = document.documentElement.clientHeight;
 
         document.documentElement.style.setProperty('--vh', `${vh}px`);
         document.documentElement.style.setProperty('--vw', `${vw}px`);
